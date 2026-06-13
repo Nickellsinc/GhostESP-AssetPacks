@@ -1,0 +1,14 @@
+{
+  "id": "twh_assetpack",
+  "name": "TWH AssetPack",
+  "version": "1",
+  "authors": ["Billi-Green"],
+  "category": "Theme",
+  "type": "asset",
+  "description": "TWH GhostESP theme with purple accents, custom app icons, and background artwork.",
+  "contents": ["Icons", "Background", "Colors"],
+  "license": "MIT",
+  "source_repo": "https://github.com/GhostESP-Revival/GhostESP-AssetPacks",
+  "commit_sha": "main",
+  "reviewed": false
+}
