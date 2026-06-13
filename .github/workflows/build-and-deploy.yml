@@ -124,6 +124,21 @@ jobs:
                   if result.returncode != 0:
                       print(f"Clone failed for {asset_id}: {result.stderr}")
                       continue
+                  if ref != 'main':
+                      result = subprocess.run(
+                          ['git', '-C', clone_dir, 'fetch', '--depth=1', 'origin', ref],
+                          capture_output=True, text=True,
+                      )
+                      if result.returncode != 0:
+                          print(f"Fetch failed for {asset_id} at {ref}: {result.stderr}")
+                          continue
+                      result = subprocess.run(
+                          ['git', '-C', clone_dir, 'checkout', 'FETCH_HEAD'],
+                          capture_output=True, text=True,
+                      )
+                      if result.returncode != 0:
+                          print(f"Checkout failed for {asset_id} at {ref}: {result.stderr}")
+                          continue
                   source_dir = clone_dir
               elif os.path.isdir(local_source):
                   print(f"Using local source for {asset_id}")
@@ -152,8 +167,15 @@ jobs:
               if os.path.isdir(build_root):
                   shutil.rmtree(build_root)
 
-              has_png_sources = bool(manifest.get('icon_sources')) or bool(manifest.get('background_sources'))
-              has_runtime_assets = bool(manifest.get('icons')) or bool(manifest.get('backgrounds'))
+              source_manifest_path = os.path.join(source_dir, 'manifest.json')
+              if not os.path.isfile(source_manifest_path):
+                  print(f"Skipping {asset_id}: source manifest not found at {source_manifest_path}")
+                  continue
+              with open(source_manifest_path) as f:
+                  source_manifest = json.load(f)
+
+              has_png_sources = bool(source_manifest.get('icon_sources')) or bool(source_manifest.get('background_sources'))
+              has_runtime_assets = bool(source_manifest.get('icons')) or bool(source_manifest.get('backgrounds'))
 
               print(f"\nBuilding asset pack: {asset_id}...")
               if has_png_sources:
@@ -173,7 +195,7 @@ jobs:
                       continue
                   gtheme_files = [os.path.join(build_root, f'{asset_id}.gtheme')]
               else:
-                  print(f"Skipping {asset_id}: manifest has no icon_sources/background_sources or icons/backgrounds")
+                  print(f"Skipping {asset_id}: source manifest has no icon_sources/background_sources or icons/backgrounds")
                   continue
 
               for gtheme in gtheme_files:
