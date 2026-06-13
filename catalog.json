@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T05:30:45.806216+00:00",
+  "generated_at": "2026-06-13T10:30:57.075365+00:00",
   "assets": [
     {
       "id": "dedsec",
@@ -20,6 +20,26 @@
       "url": "https://gesp.fuckyourcdn.com/assets/dedsec/dedsec.gtheme",
       "preview": "https://gesp.fuckyourcdn.com/assets/dedsec/screenshot.png",
       "reviewed": true
+    },
+    {
+      "id": "twh_assetpack",
+      "name": "TWH AssetPack",
+      "version": "1",
+      "authors": [
+        "Billi-Green"
+      ],
+      "category": "Theme",
+      "type": "asset",
+      "description": "TWH GhostESP theme with purple accents, custom app icons, and background artwork.",
+      "contents": [
+        "Icons",
+        "Background",
+        "Colors"
+      ],
+      "file": "twh_assetpack.gtheme",
+      "url": "https://gesp.fuckyourcdn.com/assets/twh_assetpack/twh_assetpack.gtheme",
+      "preview": "https://gesp.fuckyourcdn.com/assets/twh_assetpack/TWH_Preview.png",
+      "reviewed": false
     }
   ]
 }
